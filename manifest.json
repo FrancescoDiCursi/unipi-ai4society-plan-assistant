@@ -1,0 +1,33 @@
+{
+	"manifest_version" : 3,
+	"name" : "UnipiPhDSelector",
+	"version" : "0.001",
+    "background":{
+        "service_worker":"background.js",
+        "type":"module"
+    },
+    "permissions":[
+        "storage"
+    ]
+    ,
+    "action" : {
+        "default_icon":"yt_img.png",
+        "default_popup": "popup.html"
+
+    },
+    "content_scripts":[
+        {
+            "matches": ["https://phd-ai-society.di.unipi.it/training/"],
+            "css": ["style.css"],
+            "js": ["content.js"],
+            "run_at": "document_end"
+        }
+    ]
+    ,
+    "icons":{
+        "16":"yt_img.png",
+        "48":"yt_img.png",
+        "128":"yt_img.png"
+    },
+    "description": ""
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="pltoly-2.24.1.min.js"></script>
+    <script type="module" src="anychart-base-8.11.1.min.js"></script>
+    <script type="module" src="anychart-treemap-8.11.1.min.js"></script>
+    <script type="text/javascript" src="popup.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="handlers_cont">
+        <button id="toggle_categories">Show category handler</button>
+        <div id="cat_selector_cont">
+        </div>
+        <div id="cat_selected_cont">
+        </div>
+    </div>
+    <hr>
+    <div id="parallels_metacont">
+        <div id="all_courses_metacont">
+            <h1>All courses (<span id="n_all_courses"></span>)</h1>
+            <div id="all_courses_list">
+                
+            </div>
+            <div id="all_courses_cont" style="">
+            </div>
+        </div>
+        <hr>
+        <div id="personal_courses_metacont">
+            <h1>Personal courses (<span id="n_personal_courses">0</span>)</h1>
+            <div id="personal_courses_list">
+            </div>
+            <div id="personal_courses_cont" style="">
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+<style>
+    h1{
+        text-align: center;
+    }
+    #parallel_path{
+        width: 75%;
+    }
+    .cat_row{
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        margin-left: 42%;
+        
+    }
+    .int_inp{
+        width: 30px;
+        margin-left: 5px;
+        margin-right: 5px;
+      
+    }
+    #toggle_categories{
+        width: 100%;
+        align-self: center;
+    }
+    #cat_selector_cont{
+        display: none;
+        width: 100%;
+        text-align: center;
+        background-color: white;
+    }
+    #cat_selected_cont{
+        width:100%;
+        text-align: center;
+        margin-top:0px
+    }
+
+    #all_courses_list, #personal_courses_list{
+        height: 200px;
+        max-height: 200px;
+        overflow-y: scroll;
+        border-bottom: 1px dotted black;
+    }
+    
+    table, th, td {
+     border: 1px solid black;
+    border-collapse: collapse;
+    }
+
+    th,td{
+        min-width: 70px;
+        padding:5px
+    }
+
+    td.name{
+        font-weight:bolder;
+    }
+
+    table{
+        position: relative;
+        text-align: center;
+    }
+    th{
+        position: sticky;
+        top:-1px;
+        background-color: rgba(0, 0, 255, 1);
+        color:white
+    }
+
+    .sort_btn{
+        position: relative;
+        float: left;
+        top:0
+    }
+
+    #handlers_cont{
+        position: sticky;
+        top:0;
+        z-index:99999999;
+        border-bottom: 1px solid black;
+    }
+
+    #cat_selected_cont{
+        background-color: rgba(0, 0, 255, 1);
+        color: white;
+        font-weight: bolder;
+        font-size: 15px;
+    }
+
+
+</style>
