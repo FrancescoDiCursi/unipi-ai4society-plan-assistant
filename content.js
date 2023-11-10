@@ -110,6 +110,7 @@ window.addEventListener("load",()=>{
                     
         
             }
+
             create_inpage_counter(courses_data, already_selected_courses)
 
             console.log("COURSES: ",courses_data)
@@ -282,6 +283,22 @@ function create_inpage_counter(courses, personal_courses){
 
     table_container.appendChild(table)
 
+    //refresh btn
+    let refresh_btn=document.createElement("Button")
+    refresh_btn.id="refresh_btn"
+    refresh_btn.innerHTML="⟳"
+    refresh_btn.addEventListener("click",()=>{
+        //remove all inputs
+        let inputs= document.getElementsByClassName("course_inp")
+        for(let i=0;i<inputs.length;i++){
+            let curr_inp= inputs.item(i)
+            if (curr_inp.checked===true){
+                curr_inp.click()
+            }
+        }
+    })
+
+    table_container.insertBefore(refresh_btn, table_container.querySelector("btn"))
 
     document.body.insertBefore(table_container, document.body.firstChild)
 
