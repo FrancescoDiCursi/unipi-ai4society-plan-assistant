@@ -253,9 +253,9 @@ function create_inpage_counter(courses, personal_courses){
     let table_toggle= document.createElement("button")
     table_toggle.className="table_toggle"
     if (was_open===false){
-        table_toggle.innerHTML= "⇝"
+        table_toggle.innerHTML= "ⓘ⇝"
     }else{
-        table_toggle.innerHTML= "⇜"
+        table_toggle.innerHTML= "ⓘ⇜"
 
     }
 
@@ -270,10 +270,10 @@ function create_inpage_counter(courses, personal_courses){
     table_toggle.addEventListener("click",(e)=>{
         if (table.className==="table_off"){
            table.className="table_on"
-           table_toggle.innerHTML="⇜"
+           table_toggle.innerHTML="ⓘ⇜"
         }else if (table.className==="table_on"){
             table.className="table_off"
-            table_toggle.innerHTML="⇝"
+            table_toggle.innerHTML="ⓘ⇝"
         }
 
 

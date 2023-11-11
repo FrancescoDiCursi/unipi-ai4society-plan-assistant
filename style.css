@@ -60,6 +60,8 @@ td{
     font-weight: bolder;
     background-color: blue;
     color: white;
+    min-width: 75px;
+
 }
 
 #download_btn{
@@ -68,8 +70,9 @@ td{
     min-height: 95px;
     font-size: 35px;
     font-weight: bolder;
-    min-width: 50px;
+    min-width: 75px;
     background-color: blue;
     color: white;
 }
+
 

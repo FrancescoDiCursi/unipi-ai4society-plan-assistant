@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="handlers_cont">
-        <button id="toggle_categories">Show category handler</button>
+        <button id="toggle_categories">Toggle category handler</button>
         <div id="cat_selector_cont">
         </div>
         <div id="cat_selected_cont">
@@ -45,7 +45,7 @@
 
 <style>
     body{
-        min-width: 500px
+        min-width:800px
     }
     h1{
         text-align: center;
@@ -83,7 +83,6 @@
     }
 
     #all_courses_list, #personal_courses_list{
-        height: 200px;
         max-height: 200px;
         overflow-y: scroll;
         border-bottom: 1px dotted black;
@@ -163,5 +162,28 @@
     }
 
 
+    #toggle_categories{
+    background-color: blue;
+    color:white;
+    width:25%;
+    margin-left:40%;
+    font-size: 15px;
+    font-weight: bolder;
+    cursor: pointer;
+    margin-bottom: 5px;
+    min-width: 100px;
 
+}
+
+#save_cat_btn{
+    background-color: green;
+    color: white;
+    font-size: 15px;
+    font-weight: bolder;
+
+}
+
+.sort_btn{
+    cursor: pointer;
+}
 </style>
