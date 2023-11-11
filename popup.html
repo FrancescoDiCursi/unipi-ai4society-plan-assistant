@@ -30,6 +30,9 @@
         <hr>
         <div id="personal_courses_metacont">
             <h1>Personal courses (<span id="n_personal_courses">0</span>)</h1>
+            <h3 id="clear_">Clear all selections</h3>
+            <h3 id="infos_">Toggle personal count table</h3>
+            <h3 id="download_">Download personal courses plan</h3>
             <div id="personal_courses_list">
             </div>
             <div id="personal_courses_cont" style="">
@@ -41,6 +44,9 @@
 </html>
 
 <style>
+    body{
+        min-width: 500px
+    }
     h1{
         text-align: center;
     }
@@ -127,6 +133,35 @@
         font-weight: bolder;
         font-size: 15px;
     }
+
+    #all_courses_list, #personal_courses_list, #all_courses_cont, #personal_courses_cont{
+        display: block;
+    }
+
+    #all_toggle_btn, #personal_toggle_btn{
+        background-color: blue;
+        color: white;
+        border:none;
+        border-radius: 100%;
+        font-size: 25px;
+        margin-right: 5px;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        float: left;
+        margin-left: 15px;
+    }
+
+    h3{
+        margin-left:5%;
+        text-decoration: underline;
+        color: blue;
+        cursor: pointer;
+        text-align: center;
+
+    }
+
 
 
 </style>

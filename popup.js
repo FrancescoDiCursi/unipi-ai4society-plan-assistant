@@ -23,7 +23,8 @@ chrome.storage.local.get("all_courses").then((value)=>{
         create_cat_selectors(all_cats,courses,targetted_groups)
         //create general plot
         //create_parallel_catplot("", courses, targetted_groups,"all_courses_cont")
-
+        create_section_toggles()
+        create_links_from_h3() //click in the popup.js is defered to content.js
         //get personal courses
         chrome.storage.local.get("personal_courses").then((val2)=>{
             let personal_names= val2["personal_courses"]
@@ -460,4 +461,104 @@ table.appendChild(tab_header)
 table.appendChild(tab_body)
 //append table to DOM
 div.appendChild(table)
+}
+
+
+function create_section_toggles(){
+    //all
+    let all_title= document.querySelector("#all_courses_metacont h1")
+    let all_toggle_cont=document.createElement("span")
+    all_toggle_cont.id="all_toggle_cont"
+    let all_toggle= document.createElement("button")
+    all_toggle.id="all_toggle_btn"
+    all_toggle.innerHTML="↑"
+
+    all_toggle.addEventListener("click",()=>{
+        //hide list and plot
+        let all_list=document.getElementById("all_courses_list")
+        let all_plot=document.getElementById("all_courses_cont")
+
+
+
+        if(all_list.style.display==="block" || all_list.style.display===""){
+            all_list.style.display="none"
+            all_plot.style.display="none"
+            all_toggle.innerHTML="↓"
+
+        }else if (all_list.style.display==="none"){
+            all_list.style.display="block"
+            all_plot.style.display="block"
+            all_toggle.innerHTML="↑"
+            
+
+        }
+    })
+
+    //click
+
+    //append
+    all_toggle_cont.appendChild(all_toggle)
+    all_title.insertBefore(all_toggle,all_title.firstChild)
+
+    //personal
+    let personal_title= document.querySelector("#personal_courses_metacont h1")
+    let personal_toggle_cont=document.createElement("span")
+    personal_toggle_cont.id="personal_toggle_cont"
+    let personal_toggle= document.createElement("button")
+    personal_toggle.id="personal_toggle_btn"
+    personal_toggle.innerHTML="↑"
+
+    personal_toggle.addEventListener("click",()=>{
+        //hide list and plot
+        let personal_list=document.getElementById("personal_courses_list")
+        let personal_plot=document.getElementById("personal_courses_cont")
+
+
+
+        if(personal_list.style.display==="block" || personal_list.style.display===""){
+            personal_list.style.display="none"
+            personal_plot.style.display="none"
+            personal_toggle.innerHTML="↓"
+
+        }else if (personal_list.style.display==="none"){
+            personal_list.style.display="block"
+            personal_plot.style.display="block"
+            personal_toggle.innerHTML="↑"
+        }
+    })
+
+    //click
+
+    //append
+    personal_toggle_cont.appendChild(personal_toggle)
+    personal_title.insertBefore(personal_toggle,personal_title.firstChild)
+}
+
+
+function create_links_from_h3(){
+    let clear_= document.getElementById("clear_")
+    let infos_= document.getElementById("infos_")
+    let download_= document.getElementById("download_")
+
+    clear_.addEventListener("click",()=>{
+        chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+            var activeTab = tabs[0];
+            chrome.tabs.sendMessage(activeTab.id, {"message": "clear"});
+        });
+    })
+
+    infos_.addEventListener("click",()=>{
+        chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+            var activeTab = tabs[0];
+            chrome.tabs.sendMessage(activeTab.id, {"message": "infos"});
+        });
+    })
+
+    download_.addEventListener("click",()=>{
+        chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+            var activeTab = tabs[0];
+            chrome.tabs.sendMessage(activeTab.id, {"message": "download"});
+        });
+    })
+
 }
