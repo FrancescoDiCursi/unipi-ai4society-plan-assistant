@@ -202,18 +202,26 @@ document.addEventListener("DOMContentLoaded",()=>{
     function create_parallel_catplot(title,courses,groups,div){
             //treemap_format(grouped_data, groups)
             let dimensions=parallel_catplot_format(courses,groups)  
+            
+            // Colors
+            var color = new Int8Array(courses.length);
+            var colorscale = [[0, 'gray'], [1, 'firebrick']];
+
             //build trace
             var trace1={
                 type:"parcats",
                 dimensions:dimensions,
-                line:{
+                hoverinfo: "count+probability",
+                hoveron:"color",
+                line: {
                     colorscale: colorscale,
-                    cmin:0,
-                    cmax:1,
+                    cmin: 0,
+                    cmax: 1,
                     color: color,
-                    shape: 'hspline'
-                }
+                    shape: 'hspline'},
+                labelfont: {size: 14}
             }
+
         
             var data= [trace1]
             var layout={width:800, height:600, margin:{l:200,t:50,b:50},title:title}
@@ -222,7 +230,98 @@ document.addEventListener("DOMContentLoaded",()=>{
 
             //ADD PLOT SELECTION AND USE TO FILTER THE RELATIVE TABLE!
             //CONTINUE FROM HERE
+            let plot_div= document.querySelector(`#${div}`)
+            console.log("PLOT DIV", plot_div)
+            let new_color = new Int8Array(courses);
+
+            plot_div.on("plotly_click", function (event) {
+              var selection = [];
+              for (var i = 0; i < event.points.length; i++) {
+                if (new_color[event.points[i].pointNumber] == 1) {
+                  new_color[event.points[i].pointNumber] = 0;
+                } else {
+                  new_color[event.points[i].pointNumber] = 1;
+                }
+                selection.push(event.points[i].pointNumber);
+              }
+      
+              Plotly.restyle(div, { "line.color": [new_color] });
+
+              let filters_= get_filters(plot_div,groups)
+
+              
+
+
+            });
+
+             //add_refresh_btn
+             let refresh_selection=document.createElement("button")
+             refresh_selection.className="refresh_selection_btn"
+             refresh_selection.innerHTML="Reset selection"
+             refresh_selection.addEventListener("click",()=>{
+                 let new_color = new Int8Array(courses.length); 
+                 for(var i = 0; i < plot_div.querySelectorAll("g"); i++) {
+                     new_color.push(0);
+                   }
+                 var update = {'line.color':[new_color]};
+                 Plotly.restyle(div, update);
+
+                 let filters_= get_filters(plot_div,groups)
+             })
+             let plot_div_parent=  plot_div.parentElement
+             if (plot_div_parent.querySelectorAll(".refresh_selection_btn").length===0){
+                plot_div.parentElement.insertBefore(refresh_selection, plot_div)
+             }
+
+             
+
     }
+
+    function get_filters(plot_div, targetted_groups){
+        //get selection categories in order to filter the table
+        let dimensions_=plot_div.getElementsByClassName("dimension")
+        let target_dimensions={}
+        for(let i=0;i<dimensions_.length;i++){
+           let temp_axis=dimensions_.item(i)
+           //check if red element
+           let dimension_label= temp_axis.querySelector(".dimlabel").innerHTML
+           if (dimension_label===""){
+            dimension_label=targetted_groups[i]
+           }
+           console.log("dimlabel",dimension_label)
+           target_dimensions[dimension_label]=[]
+           let axis_els=temp_axis.querySelectorAll(".bandrect")
+
+           let is_red=false
+           for(let j=0;j<axis_els.length;j++){
+               let curr_el= axis_els.item(j)
+               let curr_el_color= curr_el.getAttribute("fill")
+               console.log("COLOR", curr_el_color)
+               if (curr_el_color==="rgb(178, 34, 34)"){
+                   is_red=true
+                   //get label of el
+                   let curr_el_label=curr_el.parentElement.querySelector(".catlabel").innerHTML
+                   target_dimensions[dimension_label]=[... target_dimensions[dimension_label], curr_el_label]
+               }
+           }
+        }
+
+        console.log("DIMENSIONS", target_dimensions)
+        let filters = {}
+        Object.keys(target_dimensions).forEach((k,i)=>{
+            if(target_dimensions[k].length>0){
+                filters[k]=target_dimensions[k]
+            }
+        })
+        return filters
+    }
+
+    function filter_table_data(courses, filters){
+        //CONTINUE FROM HERE!!
+        
+
+    }
+
 
     function toggle_cat_selector(){
         document.querySelector("#cat_selector_cont").style.display==="none" ?document.querySelector("#cat_selector_cont").style.display="block" :document.querySelector("#cat_selector_cont").style.display="none"
@@ -342,6 +441,12 @@ document.addEventListener("DOMContentLoaded",()=>{
                             })
 
                         })
+
+                        //remove  catplot reset selection btn  .refresh_selection_btn
+                        let refresh_btns=document.getElementsByClassName("refresh_selection_btn")
+                        for(let i=0;i<refresh_btns.length;i++){
+                            refresh_btns.item(i).remove()
+                        }
 
 
 

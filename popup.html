@@ -32,7 +32,7 @@
             <h1>Personal courses (<span id="n_personal_courses">0</span>)</h1>
             <h3 id="clear_">Clear all selections</h3>
             <h3 id="infos_">Toggle personal count table</h3>
-            <h3 id="download_">Download personal courses plan</h3>
+            <h3 id="download_">Download study plan</h3>
             <div id="personal_courses_list">
             </div>
             <div id="personal_courses_cont" style="">
@@ -45,7 +45,7 @@
 
 <style>
     body{
-        min-width:800px
+        min-width:790px;
     }
     h1{
         text-align: center;
@@ -124,6 +124,7 @@
         top:0;
         z-index:99999999;
         border-bottom: 1px solid black;
+        background-color: white;
     }
 
     #cat_selected_cont{
@@ -185,5 +186,9 @@
 
 .sort_btn{
     cursor: pointer;
+}
+
+.refresh_selection_btn{
+    margin-left: 50%;
 }
 </style>

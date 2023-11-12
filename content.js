@@ -337,7 +337,7 @@ function create_inpage_counter(courses, personal_courses){
                 let idx_courses=0
                 //PLAN INFO LIMITS
                 txt_file+="# PLAN VALIDITY:\n\n"
-                txt_file+=`- Minimum number of courses with exam: ${rows[0][2]} (${exam_n_limit})"\n`
+                txt_file+=`- Minimum number of courses with exam: ${rows[0][2]} (${exam_n_limit})\n`
                 txt_file+=`- Minimum number of hours in courses with exam: ${rows[1][2]} (${hours_exam_limit})\n`
                 txt_file+=`- Minimum number of hours in courses with no exam: ${rows[1][3]} (${hours_noExam_limit})\n`
                 if([exam_n_limit, hours_exam_limit, hours_noExam_limit].every((d)=>d===true)){
