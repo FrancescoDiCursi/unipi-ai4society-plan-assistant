@@ -21,9 +21,19 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     } else if(message.msg === "download_csv_file"){
         chrome.downloads.download({url:message.data, filename:"test.csv"})
 
+    }else if(message.msg === "get_targetted_groups"){
+        chrome.storage.local.get("targetted_groups").then((val)=>{
+            let data_= val["targetted_groups"]
+            console.log(" TARGETTED", data_)
+            sendResponse({data:data_})
+        })
     }
     
     else {
         // alert(message.data);
     }
+
+    return true //it is needed for sendResponse, otherwise it passes "undefined"
+
+
 });

@@ -101,6 +101,10 @@ window.addEventListener("load",()=>{
                         //console.log("FIELD: ", field)
                         let label= field.querySelector("strong").innerText.replace(":","").trim()
                         let value= field.querySelector("span").innerText.replace("<br>","")
+                        if(label==="Semester" && value.indexOf(",")>-1){
+                            console.log("semester", value, value.split(",").map(d=>d.trim()).join(", ") )
+                            value= value.split(",").map(d=>d.trim()).join(",")
+                        }
                         data_[label]=value
                     }
                     data_["Name"]=name_
@@ -336,8 +340,9 @@ function create_inpage_counter(courses, personal_courses){
     download_btn.id="download_btn"
     download_btn.innerHTML="⭳"
     download_btn.addEventListener("click",()=>{
-    let confirm_download= confirm("Do you really want to download your study plan?")
+        let confirm_download= confirm("Do you really want to download your study plan?")
         if(confirm_download){
+            let reduced_data= confirm("Do you want to save only selected dimensions?")
             let text_format_flag= confirm("Do you want to download the file as TXT?\n(Press no for CSV)")
             let csv_format_flag
             if(text_format_flag===false){
@@ -345,86 +350,128 @@ function create_inpage_counter(courses, personal_courses){
             }else{
                 csv_format_flag=false
             }
-            if(text_format_flag){
-                //create TXT file
-                let txt_file= ""
-                let idx_courses=0
-                //PLAN INFO LIMITS
-                txt_file+="# PLAN VALIDITY:\n\n"
-                txt_file+=`- Minimum number of courses with exam: ${rows[0][2]} (${exam_n_limit})\n`
-                txt_file+=`- Minimum number of hours in courses with exam: ${rows[1][2]} (${hours_exam_limit})\n`
-                txt_file+=`- Minimum number of hours in courses with no exam: ${rows[1][3]} (${hours_noExam_limit})\n`
-                if([exam_n_limit, hours_exam_limit, hours_noExam_limit].every((d)=>d===true)){
-                    txt_file+= `\nRESULT: the plan is VALID.`
-                }else{
-                    txt_file+= `\nRESULT: the plan is NOT VALID.`
-                }
-                txt_file+="\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
-
-                //with exam
-                txt_file+="# COURSE WITH EXAM\n"
-                personal_courses.filter(f=>f["Exam"]==="Yes").forEach((d,i)=>{
-                    //avoid duplicate entries (?)
-                    if(!txt_file.includes(`Name: ${d["Name"]}`)){
-                        idx_courses+=1
-                        let temp_txt=`${idx_courses}) `
-                        let curr_obj= personal_courses[i]
-                        //add name first
-                        temp_txt+=`Name: ${curr_obj["Name"]};\n\n`
-                        Object.keys(curr_obj).forEach((k,j)=>{
-                            if(k!=="Name"){
-                                let temp_el=`- ${k}: ${curr_obj[k]};\n\n`
-                                temp_txt+=temp_el
+           
+                let reduced_personal_courses=[]
+                //get cat handlers from popup.js
+                chrome.runtime.sendMessage({"msg":"get_targetted_groups"},(response)=>{
+                    if(reduced_data){
+                    console.log("DATA", response)
+                    let groups
+                    if (response.data.length===0){
+                        groups=["Institution","Location","Type", "Attendance Mode","Exam","Lecturers","Email","Academic Year","Semester","Hours", "Timetable","Abstract","Syllabus","Link"]
+                    }else{
+                        groups= response.data
+                    }
+                    console.log("GROUPS",groups)
+                    personal_courses.forEach((d,i)=>{
+                        let curr_course=personal_courses[i]
+                        let new_course={"Name":curr_course["Name"]}
+                        let curr_keys=Object.keys(curr_course)
+                        curr_keys.forEach((k,j)=>{
+                            if(groups.includes(k)){
+                                new_course[k]=curr_course[k]
                             }
+                        })
+                        reduced_personal_courses.push(new_course)
 
-                        }) 
-                        //temp_txt+="\n\n"
-                        if(i===0){
-                            txt_file+="\n"+temp_txt
-                        }else{
-                            txt_file+="\n*************\n"+temp_txt  
-                        }
+                    })
+                    console.log("REDUCED", reduced_personal_courses)
+                    personal_courses=reduced_personal_courses
                     }
 
-                })
-                txt_file+="\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
+                    
+                    if(text_format_flag){
+                        //create TXT file
+                        let txt_file= ""
+                        let idx_courses=0
+                        //PLAN INFO LIMITS
+                        txt_file+="# PLAN VALIDITY:\n\n"
+                        txt_file+=`- Minimum number of courses with exam: ${rows[0][2]} (${exam_n_limit})\n`
+                        txt_file+=`- Minimum number of hours in courses with exam: ${rows[1][2]} (${hours_exam_limit})\n`
+                        txt_file+=`- Minimum number of hours in courses with no exam: ${rows[1][3]} (${hours_noExam_limit})\n`
+                        if([exam_n_limit, hours_exam_limit, hours_noExam_limit].every((d)=>d===true)){
+                            txt_file+= `\nRESULT: the plan is VALID.`
+                        }else{
+                            txt_file+= `\nRESULT: the plan is NOT VALID.`
+                        }
+                        txt_file+="\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
 
-                //without exam
-                txt_file+="# COURSES WITHOUT EXAM\n"
-                personal_courses.filter(f=>f["Exam"]==="No").forEach((d,i)=>{
-                    //avoid duplicate entries (?)
-                    if(!txt_file.includes(`Name: ${d["Name"]}`)){
-                        idx_courses+=1
-                        let temp_txt=`- ${idx_courses}) `
-                        let curr_obj= personal_courses[i]
-                        //add name first
-                        temp_txt+=`Name: ${curr_obj["Name"]};\n\n`
-                        Object.keys(curr_obj).forEach((k,j)=>{
-                            if(k!=="Name"){
-                                let temp_el=`- ${k}: ${curr_obj[k]};\n\n`
-                                temp_txt+=temp_el
+                        //with exam
+                        txt_file+="# COURSE WITH EXAM\n"
+                        personal_courses.filter(f=>f["Exam"]==="Yes").forEach((d,i)=>{
+                            //avoid duplicate entries (?)
+                            if(!txt_file.includes(`Name: ${d["Name"]}`)){
+                                idx_courses+=1
+                                let temp_txt=`${idx_courses}) `
+                                let curr_obj= personal_courses[i]
+                                //add name first
+                                temp_txt+=`Name: ${curr_obj["Name"]};\n\n`
+                                Object.keys(curr_obj).forEach((k,j)=>{
+                                    if(k!=="Name"){
+                                        let temp_el=`- ${k}: ${curr_obj[k]};\n\n`
+                                        temp_txt+=temp_el
+                                    }
+
+                                }) 
+                                //temp_txt+="\n\n"
+                                if(i===0){
+                                    txt_file+="\n"+temp_txt
+                                }else{
+                                    txt_file+="\n*************\n"+temp_txt  
+                                }
                             }
 
-                        }) 
-                        temp_txt+="\n\n"
-                        if(i===0){
-                            txt_file+="\n"+temp_txt
-                        }else{
-                            txt_file+="\n*************\n"+temp_txt  
-                        }
+                        })
+                        txt_file+="\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
+
+                        //without exam
+                        txt_file+="# COURSES WITHOUT EXAM\n"
+                        personal_courses.filter(f=>f["Exam"]==="No").forEach((d,i)=>{
+                            //avoid duplicate entries (?)
+                            if(!txt_file.includes(`Name: ${d["Name"]}`)){
+                                idx_courses+=1
+                                let temp_txt=`- ${idx_courses}) `
+                                let curr_obj= personal_courses[i]
+                                //add name first
+                                temp_txt+=`Name: ${curr_obj["Name"]};\n\n`
+                                Object.keys(curr_obj).forEach((k,j)=>{
+                                    if(k!=="Name"){
+                                        let temp_el=`- ${k}: ${curr_obj[k]};\n\n`
+                                        temp_txt+=temp_el
+                                    }
+
+                                }) 
+                                temp_txt+="\n\n"
+                                if(i===0){
+                                    txt_file+="\n"+temp_txt
+                                }else{
+                                    txt_file+="\n*************\n"+temp_txt  
+                                }
+                            }
+
+                        })
+
+                        console.log("txt", txt_file)
+                        //download text from blob
+                        let blob= new Blob([txt_file],{type:"text/plain"})
+                        let url = URL.createObjectURL(blob)
+                        //download from background page
+                        chrome.runtime.sendMessage({"msg":"download_txt_file","data":url})
+                    }else if(csv_format_flag){
+                        //create CSV file
+                        let csv_file= csvmaker(personal_courses)
+                        console.log("CSV", csv_file)
+                        //download csv from blob
+                        let blob= new Blob([csv_file],{type:"text/csv;charset=utf-8"})
+                        let url = URL.createObjectURL(blob)
+                        //download from background page
+                        chrome.runtime.sendMessage({"msg":"download_csv_file","data":url})
                     }
 
-                })
 
-                console.log("txt", txt_file)
-                //download text from blob
-                let blob= new Blob([txt_file],{type:"text/plain"})
-                let url = URL.createObjectURL(blob)
-                //download from background page
-                chrome.runtime.sendMessage({"msg":"download_txt_file","data":url})
-            }else if(csv_format_flag){
-                //create CSV file
-            }
+                })
+            
+
         }
         
          //remove tooltip if present
@@ -510,4 +557,54 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+function csvmaker (items) {
+
+  
+    let csv
+
+    // Loop the array of objects
+    for(let row = 0; row < items.length; row++){
+        let keys_=Object.keys(items[0])
+        console.log("ORIGINAL", keys_)
+        if(keys_[0]!=="Name"){
+            keys_.pop("Name")
+            keys_.unshift("Name")
+            console.log("updated", keys_)
+    
+        }
+
+        let keysAmount = keys_.length
+        let keysCounter = 0
+
+        // If this is the first row, generate the headings
+        if(row === 0){
+            
+            // Loop each property of the object
+            for(let j=0;j<keys_.length;j++){
+                let key= keys_[j]
+                                // This is to not add a comma at the last cell
+                                // The '\r\n' adds a new line
+                csv += key + (keysCounter+1 < keysAmount ? ',' : '\r\n' )
+                keysCounter++
+            }
+            for(let j=0;j<keys_.length;j++){
+                let key= keys_[j]
+                csv += items[row][key].replaceAll("\n"," <new_line> ").replaceAll(","," <comma> ").replace(" <new_line>  <new_line> "," <new_line>") + (j+1<keys_.length ? ',' : '\r\n' )
+                keysCounter++
+            }
+        }else{
+       
+            for(let j=0;j<keys_.length;j++){
+                let key= keys_[j]
+                csv += items[row][key].replaceAll("\n"," <new_line> ").replaceAll(","," <comma> ").replace(" <new_line>  <new_line> "," <new_line>") + (keysCounter+1 < keysAmount ? ',' : '\r\n' )
+                keysCounter++
+            }
+        }
+
+        keysCounter = 0
+    }
+    // Returning the array joining with new line  
+    return csv.replace("undefined","")
+} 
 

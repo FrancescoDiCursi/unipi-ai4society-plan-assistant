@@ -213,6 +213,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 dimensions:dimensions,
                 hoverinfo: "count+probability",
                 hoveron:"color",
+                //hovertemplate:`bandcolorcount`,
                 line: {
                     colorscale: colorscale,
                     cmin: 0,
