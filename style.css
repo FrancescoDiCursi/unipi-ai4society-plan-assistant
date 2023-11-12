@@ -76,3 +76,16 @@ td{
 }
 
 
+#info_tooltip{
+    display: none;
+    position: absolute;
+    left: 100px;
+    background-color: white;
+    border: 1px solid black;
+    min-width: 150px;
+    width: 300px;
+    max-width: 600px;
+    text-align: center;
+}
+
+

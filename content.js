@@ -192,8 +192,8 @@ function create_inpage_counter(courses, personal_courses){
 
     let cols=["","All","Exam", "No exam"]
     let rows=[
-        ["Selected", String(n_selected_all), String(n_selected_exam)+"\\3", String(n_selected_no_exam)],
-        ["Hours", String(hours_all), String(hours_exam)+"\\80", String(hours_noExam)+"\\60"],        
+        ["Selected", String(n_selected_all), String(n_selected_exam)+"/3", String(n_selected_no_exam)],
+        ["Hours", String(hours_all), String(hours_exam)+"/80", String(hours_noExam)+"/60"],        
     ]
 
     //add cols
@@ -276,6 +276,14 @@ function create_inpage_counter(courses, personal_courses){
             table_toggle.innerHTML="ⓘ⇝"
         }
 
+        //remove tooltip if present
+        try{
+            let tooltip_=document.querySelector("#info_tooltip")
+            tooltip_.style.display="none"
+        }catch{
+
+        }
+
 
         
     })
@@ -311,7 +319,13 @@ function create_inpage_counter(courses, personal_courses){
                 }
             }
 
+        //remove tooltip if present
+        try{
+            let tooltip_=document.querySelector("#info_tooltip")
+            tooltip_.style.display="none"
+        }catch{
 
+        }
     
     })
 
@@ -413,8 +427,65 @@ function create_inpage_counter(courses, personal_courses){
             }
         }
         
+         //remove tooltip if present
+         try{
+            let tooltip_=document.querySelector("#info_tooltip")
+            tooltip_.style.display="none"
+        }catch{
+
+        }
     })
     table_container.appendChild(download_btn)
+
+    //append tooltip
+    let info_tooltip= document.createElement("span")
+    info_tooltip.id="info_tooltip"
+    table_container.appendChild(info_tooltip)
+
+    //handle tooltip
+    refresh_btn.addEventListener("mouseenter",(e)=>{
+        info_tooltip.style.display="block"
+        info_tooltip.innerHTML="Reset study plan"
+        info_tooltip.style.top="-70px" //e.target.style.top
+    })
+
+    refresh_btn.addEventListener("mouseleave",()=>{
+        info_tooltip.style.display="none"
+        info_tooltip.style.top="0px"
+        info_tooltip.innerHTML=""
+
+
+    })
+
+    
+    table_toggle.addEventListener("mouseenter",(e)=>{
+        info_tooltip.style.display="block"
+        info_tooltip.innerHTML="Show counters and plan validity<br>(red = invalid; green = valid)"
+        info_tooltip.style.top="15px" //e.target.style.top
+    })
+
+    table_toggle.addEventListener("mouseleave",()=>{
+        info_tooltip.style.display="none"
+        info_tooltip.style.top=0
+        info_tooltip.innerHTML=""
+
+    })
+
+    download_btn.addEventListener("mouseenter",(e)=>{
+        info_tooltip.style.display="block"
+        info_tooltip.innerHTML="Download study plan<br>(TXT or CSV)"
+
+        info_tooltip.style.top="115px" //e.target.style.top
+    })
+
+    download_btn.addEventListener("mouseleave",()=>{
+        info_tooltip.style.display="none"
+        info_tooltip.style.top=0
+        info_tooltip.innerHTML=""
+
+
+    })
+    
    
 
     //last append

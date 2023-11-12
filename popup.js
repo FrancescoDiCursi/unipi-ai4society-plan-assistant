@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded",()=>{
                 //set courses counters
                 let all_courses_counter= document.getElementById("n_all_courses")
                 let personal_courses_counter=document.getElementById("n_personal_courses")
-                all_courses_counter.innerHTML=String(courses.length)
-                personal_courses_counter.innerHTML=String(personal_courses.length)
+                all_courses_counter.innerHTML=String(courses.length)+"/"+String(courses.length)
+                personal_courses_counter.innerHTML=String(personal_courses.length)+"/"+String(personal_courses.length)
                 //click create plots
                 let draw_plots_btn= document.getElementById("save_cat_btn")
                 draw_plots_btn.click()
@@ -248,7 +248,14 @@ document.addEventListener("DOMContentLoaded",()=>{
               Plotly.restyle(div, { "line.color": [new_color] });
 
               let filters_= get_filters(plot_div,groups)
-
+              //add here
+              let selected_courses= filter_table_data(courses, filters_)
+              let list_div= document.getElementById(div.replace("cont","list"))
+              create_exam_list(selected_courses ,groups, list_div)
+              //update counter
+              let counter_id_el= "n_" + div.replace("_cont","")
+              let counter_el= document.getElementById(counter_id_el)
+              counter_el.innerHTML=`${selected_courses.length}/${courses.length}`
               
 
 
@@ -267,6 +274,16 @@ document.addEventListener("DOMContentLoaded",()=>{
                  Plotly.restyle(div, update);
 
                  let filters_= get_filters(plot_div,groups)
+                 //add here
+                 let selected_courses= filter_table_data(courses, filters_)
+                 let list_div= document.getElementById(div.replace("cont","list"))
+                 create_exam_list(selected_courses ,groups, list_div)
+                //update counter
+                let counter_id_el= "n_" + div.replace("_cont","")
+                let counter_el= document.getElementById(counter_id_el)
+                counter_el.innerHTML=`${selected_courses.length}/${courses.length}`
+   
+
              })
              let plot_div_parent=  plot_div.parentElement
              if (plot_div_parent.querySelectorAll(".refresh_selection_btn").length===0){
@@ -315,10 +332,31 @@ document.addEventListener("DOMContentLoaded",()=>{
         })
         return filters
     }
-
+    
     function filter_table_data(courses, filters){
         //CONTINUE FROM HERE!!
-        
+        let courses_copy= [... courses]
+        let filter_keys= Object.keys(filters)
+        let filter_courses=[]
+        courses.forEach((c,i)=>{
+            let curr_course=courses[i]
+            let valid_el=false
+            let flags_=[]
+           filter_keys.forEach((f_k,j)=>{
+                let curr_el= curr_course[f_k]
+                if(filters[f_k].includes(curr_el)){
+                    flags_.push(true)
+                }else{
+                    flags_.push(false)
+                }
+            })
+            valid_el= flags_.every(d=>d===true)
+            if(valid_el){
+                filter_courses.push(curr_course)
+            }
+        })
+        console.log("FILTERD COURSE", filter_courses)
+        return filter_courses
 
     }
 
