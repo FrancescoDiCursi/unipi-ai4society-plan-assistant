@@ -601,9 +601,15 @@ document.addEventListener("DOMContentLoaded",()=>{
         //crate a cell for each key
         targetted_groups.forEach((k,i)=>{
             let body_cell= document.createElement("td")
-            body_cell.innerText= obj[k] //val of key
             if(k==="Name"){
                 body_cell.className="name"
+                //get link from original course list
+                let original_course= courses.filter(f=>f["Name"]===obj["Name"])[0]
+                body_cell.innerHTML= `<a target="blank_" href="${original_course["Link"]}">${obj[k]}</a>`  //val of key
+
+            }else{
+                body_cell.innerHTML= obj[k]  //val of key
+
             }
             body_row.appendChild(body_cell)
         })
@@ -693,6 +699,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         let clear_= document.getElementById("clear_")
         let infos_= document.getElementById("infos_")
         let download_= document.getElementById("download_")
+        let import_=document.getElementById("import_")
 
         clear_.addEventListener("click",()=>{
             chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
@@ -714,6 +721,12 @@ document.addEventListener("DOMContentLoaded",()=>{
                 chrome.tabs.sendMessage(activeTab.id, {"message": "download"});
             });
         })
-
+        
+        import_.addEventListener("click",()=>{
+            chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+                var activeTab = tabs[0];
+                chrome.tabs.sendMessage(activeTab.id, {"message": "import"});
+            });
+        })
     }
 })

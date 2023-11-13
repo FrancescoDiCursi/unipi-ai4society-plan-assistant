@@ -400,10 +400,10 @@ function create_inpage_counter(courses, personal_courses){
                         txt_file+="# COURSE WITH EXAM\n"
                         personal_courses.filter(f=>f["Exam"]==="Yes").forEach((d,i)=>{
                             //avoid duplicate entries (?)
-                            if(!txt_file.includes(`Name: ${d["Name"]}`)){
+                            if(!txt_file.includes(`Name: ${d["Name"]};`)){
                                 idx_courses+=1
                                 let temp_txt=`${idx_courses}) `
-                                let curr_obj= personal_courses[i]
+                                let curr_obj= d
                                 //add name first
                                 temp_txt+=`Name: ${curr_obj["Name"]};\n\n`
                                 Object.keys(curr_obj).forEach((k,j)=>{
@@ -426,12 +426,15 @@ function create_inpage_counter(courses, personal_courses){
 
                         //without exam
                         txt_file+="# COURSES WITHOUT EXAM\n"
+                        
                         personal_courses.filter(f=>f["Exam"]==="No").forEach((d,i)=>{
                             //avoid duplicate entries (?)
-                            if(!txt_file.includes(`Name: ${d["Name"]}`)){
+                            if(!txt_file.includes(`Name: ${d["Name"]};`)){
                                 idx_courses+=1
                                 let temp_txt=`- ${idx_courses}) `
-                                let curr_obj= personal_courses[i]
+                                let curr_obj= d
+                                //console.log("NO EXAM NAME: ",curr_obj["Name"] )
+
                                 //add name first
                                 temp_txt+=`Name: ${curr_obj["Name"]};\n\n`
                                 Object.keys(curr_obj).forEach((k,j)=>{
@@ -484,10 +487,71 @@ function create_inpage_counter(courses, personal_courses){
     })
     table_container.appendChild(download_btn)
 
+    //append import btn
+    let import_btn=document.createElement("button")
+    import_btn.id="import_btn"
+    import_btn.innerHTML="💾"
+    import_btn.addEventListener("click", async ()=>{
+        [fileHandle]= await window.showOpenFilePicker()
+        const file_= await fileHandle.getFile()
+        const file_content = await file_.text()
+        let imported_names=[]
+        if(file_.name.endsWith(".csv")){
+            //get only names
+            file_content.split("\n").forEach((l,i)=>{
+                if(i>0){ //skip header
+                    let line= l.split(",")
+                    let curr_name=line[0]
+                    if(curr_name!==""){
+                        imported_names.push(curr_name)
+                    }
+                }
+            })
+        }else if(file_.name.endsWith(".txt")){
+            file_content.split("\n").forEach((l,i)=>{
+                let line=l
+                if(line.includes("Name:")){
+                    let curr_name= line.split("Name:")[1].trim().replace(";","")
+                    if(curr_name!==""){
+                        imported_names.push(curr_name)
+                    }
+                }
+            })
+        }else{
+            alert("File format must be TXT or CSV!")
+            return
+        }
+        //remove old selections
+        let inputs= document.getElementsByClassName("course_inp")
+                    
+        for(let i=0;i<inputs.length;i++){
+            let curr_inp= inputs.item(i)
+            if (curr_inp.checked===true){
+                curr_inp.click()
+            }
+        }
+        //
+        //click imported names
+        let node_titles= document.getElementsByClassName("views-field-title")
+        for(let i=0;i<node_titles.length;i++){
+            let curr_node= node_titles.item(i)
+            let curr_title_txt= curr_node.innerText
+            let curr_inp= curr_node.parentElement.querySelector(".course_inp")
+            if(imported_names.includes(curr_title_txt)){
+                curr_inp.click()
+            }
+        }
+        console.log(imported_names)
+    })
+    table_container.appendChild(import_btn)
+
+
     //append tooltip
     let info_tooltip= document.createElement("span")
     info_tooltip.id="info_tooltip"
     table_container.appendChild(info_tooltip)
+
+    
 
     //handle tooltip
     refresh_btn.addEventListener("mouseenter",(e)=>{
@@ -533,6 +597,20 @@ function create_inpage_counter(courses, personal_courses){
 
     })
     
+    import_btn.addEventListener("mouseenter",(e)=>{
+        info_tooltip.style.display="block"
+        info_tooltip.innerHTML="Import a study plan<br>(TXT or CSV)"
+
+        info_tooltip.style.top="215px" //e.target.style.top
+    })
+
+    import_btn.addEventListener("mouseleave",()=>{
+        info_tooltip.style.display="none"
+        info_tooltip.style.top=0
+        info_tooltip.innerHTML=""
+
+
+    })
    
 
     //last append
@@ -548,12 +626,15 @@ chrome.runtime.onMessage.addListener(
         if( request.message === "clear" ) {
             let refresh_btn = document.getElementById("refresh_btn")
             refresh_btn.click()
-        } if( request.message === "infos" ) {
+        } else if( request.message === "infos" ) {
             let table_toggle = document.getElementsByClassName("table_toggle")[0]
             table_toggle.click()
-        } if( request.message === "download"){
+        } else if( request.message === "download"){
             let download_btn= document.getElementById("download_btn")
             download_btn.click()
+        } else if( request.message === "import"){
+            let import_btn= document.getElementById("import_btn")
+            import_btn.click()
         }
     }
 );

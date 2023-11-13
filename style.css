@@ -88,4 +88,15 @@ td{
     text-align: center;
 }
 
+#import_btn{
+    position:absolute;
+    top:200px;
+    min-height: 95px;
+    font-size: 35px;
+    font-weight: bolder;
+    min-width: 75px;
+    background-color: blue;
+    color: white;  
+}
+
 

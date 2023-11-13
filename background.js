@@ -19,7 +19,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         chrome.downloads.download({url:message.data, filename:"PhD_study_plan.txt"})
 
     } else if(message.msg === "download_csv_file"){
-        chrome.downloads.download({url:message.data, filename:"test.csv"})
+        chrome.downloads.download({url:message.data, filename:"PhD_study_plan.csv"})
 
     }else if(message.msg === "get_targetted_groups"){
         chrome.storage.local.get("targetted_groups").then((val)=>{
