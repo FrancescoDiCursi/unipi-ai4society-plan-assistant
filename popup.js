@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         dimensions=[]
 
         for(let i=0;i<groups.length;i++){
-            dimensions.push({label:groups[i], values:lists[i]})
+            dimensions.push({label:groups[i], values:lists[i], categoryorder:"category ascending"})
         }
 
         console.log(dimensions)
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     function create_parallel_catplot(title,courses,groups,div){
             //treemap_format(grouped_data, groups)
-            let dimensions=parallel_catplot_format(courses,groups)  
+            let dimensions=parallel_catplot_format(courses,groups)
             
             // Colors
             var color = new Int8Array(courses.length);
@@ -220,12 +220,14 @@ document.addEventListener("DOMContentLoaded",()=>{
                     cmax: 1,
                     color: color,
                     shape: 'hspline'},
-                labelfont: {size: 14}
+                labelfont: {size: 12, color:'black',},
+                tickfont:{size:10}
             }
 
         
             var data= [trace1]
-            var layout={width:800, height:600, margin:{l:200,t:50,b:50},title:title}
+            var layout={width:700, height:600, margin:{l:160,t:50,b:50},title:title}
+            
         
             Plotly.newPlot(div, data, layout)
 
@@ -631,24 +633,28 @@ document.addEventListener("DOMContentLoaded",()=>{
         all_toggle_cont.id="all_toggle_cont"
         let all_toggle= document.createElement("button")
         all_toggle.id="all_toggle_btn"
-        all_toggle.innerHTML="↑"
+        all_toggle.innerHTML="Close"
 
         all_toggle.addEventListener("click",()=>{
             //hide list and plot
             let all_list=document.getElementById("all_courses_list")
             let all_plot=document.getElementById("all_courses_cont")
+            let refresh_btn=document.querySelector("#all_courses_metacont .refresh_selection_btn")
 
 
 
             if(all_list.style.display==="block" || all_list.style.display===""){
                 all_list.style.display="none"
                 all_plot.style.display="none"
-                all_toggle.innerHTML="↓"
+                all_toggle.innerHTML="Open"
+                refresh_btn.style.display="none"
 
             }else if (all_list.style.display==="none"){
                 all_list.style.display="block"
                 all_plot.style.display="block"
-                all_toggle.innerHTML="↑"
+                all_toggle.innerHTML="Close"
+                refresh_btn.style.display="block"
+
                 
 
             }
@@ -666,24 +672,29 @@ document.addEventListener("DOMContentLoaded",()=>{
         personal_toggle_cont.id="personal_toggle_cont"
         let personal_toggle= document.createElement("button")
         personal_toggle.id="personal_toggle_btn"
-        personal_toggle.innerHTML="↑"
+        personal_toggle.innerHTML="Close"
 
         personal_toggle.addEventListener("click",()=>{
             //hide list and plot
             let personal_list=document.getElementById("personal_courses_list")
             let personal_plot=document.getElementById("personal_courses_cont")
+            let refresh_btn=document.querySelector("#personal_courses_metacont .refresh_selection_btn")
 
 
 
             if(personal_list.style.display==="block" || personal_list.style.display===""){
                 personal_list.style.display="none"
                 personal_plot.style.display="none"
-                personal_toggle.innerHTML="↓"
+                personal_toggle.innerHTML="Open"
+                refresh_btn.style.display="none"
+
 
             }else if (personal_list.style.display==="none"){
                 personal_list.style.display="block"
                 personal_plot.style.display="block"
-                personal_toggle.innerHTML="↑"
+                personal_toggle.innerHTML="Close"
+                refresh_btn.style.display="block"
+
             }
         })
 

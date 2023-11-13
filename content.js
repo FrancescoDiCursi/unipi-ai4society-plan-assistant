@@ -267,7 +267,7 @@ function create_inpage_counter(courses, personal_courses){
         table_toggle.style.backgroundColor="green"
         table_toggle.style.color="white"
     }else{
-        table_toggle.style.backgroundColor="red"
+        table_toggle.style.backgroundColor="#D22B2B"
         table_toggle.style.color="white"
     }
 

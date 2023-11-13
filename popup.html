@@ -45,8 +45,20 @@
 </html>
 
 <style>
+    :root{
+        --main_color: #D22B2B;
+        --secondary_color: #0071c5;
+        --bg_color:#B9D9EB;
+        --inner_cont_bg:white;
+        --light_yellow:rgba(255, 255, 0, 0.055)
+
+    }
+
     body{
-        min-width:790px;
+        max-width:750px;
+        min-width:750px;
+        background-color: var(--bg_color);
+
     }
     h1{
         text-align: center;
@@ -67,15 +79,12 @@
         margin-right: 5px;
       
     }
-    #toggle_categories{
-        width: 100%;
-        align-self: center;
-    }
+
     #cat_selector_cont{
         display: none;
         width: 100%;
         text-align: center;
-        background-color: white;
+        background-color: var(--inner_cont_bg);
     }
     #cat_selected_cont{
         width:100%;
@@ -86,12 +95,13 @@
     #all_courses_list, #personal_courses_list{
         max-height: 200px;
         overflow-y: scroll;
-        border-bottom: 1px dotted black;
+        border: 2px solid black;
     }
     
     table, th, td {
-     border: 1px solid black;
+     border: 2px solid black;
     border-collapse: collapse;
+    background-color:var(--light_yellow);
     }
 
     th,td{
@@ -110,7 +120,7 @@
     th{
         position: sticky;
         top:-1px;
-        background-color: rgba(0, 0, 255, 1);
+        background-color: var(--secondary_color);
         color:white
     }
 
@@ -124,12 +134,12 @@
         position: sticky;
         top:0;
         z-index:99999999;
-        border-bottom: 1px solid black;
-        background-color: white;
+        border: 2px solid black;
+        background-color: var(--inner_cont_bg);
     }
 
     #cat_selected_cont{
-        background-color: rgba(0, 0, 255, 1);
+        background-color: var(--secondary_color);
         color: white;
         font-weight: bolder;
         font-size: 15px;
@@ -140,18 +150,22 @@
     }
 
     #all_toggle_btn, #personal_toggle_btn{
-        background-color: blue;
+        background-color:var(--main_color);
         color: white;
         border:none;
-        border-radius: 100%;
-        font-size: 25px;
+        border-radius: 0% 100% 100% 0%;
+        font-size: 20px;
         margin-right: 5px;
         cursor: pointer;
-        width: 40px;
-        height: 40px;
-        position: relative;
+        width: 90px;
+        height: 35px;
+        position: absolute;
         float: left;
-        margin-left: 15px;
+        left:9px;
+        border: 1px solid black;
+        font-weight: bold;
+
+
     }
 
     h3{
@@ -165,16 +179,19 @@
 
 
     #toggle_categories{
-    background-color: blue;
+    background-color: var(--main_color);
     color:white;
-    width:25%;
-    margin-left:40%;
-    font-size: 15px;
+    width:400px;
+    margin-left:25%;
+    font-size: 20px;
     font-weight: bolder;
     cursor: pointer;
     margin-bottom: 5px;
-    min-width: 100px;
-
+    min-width: 150px;
+    border-radius: 0% 0% 100% 100%;
+    position: relative;
+    top:0;
+    padding: 1%;
 }
 
 #save_cat_btn{
@@ -182,7 +199,9 @@
     color: white;
     font-size: 15px;
     font-weight: bolder;
-
+    margin-left:70px;
+    margin-top:15px;
+    margin-bottom:15px
 }
 
 .sort_btn{
@@ -190,6 +209,18 @@
 }
 
 .refresh_selection_btn{
-    margin-left: 50%;
+    margin-left: 45%;
+    margin-top:15px;
+    color:white;
+    background-color: var(--secondary_color);
+    font-size: 15px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+#all_courses_metacont, #personal_courses_metacont{
+    border: 2px solid black;
+    padding: 1%;
+    background-color: var(--inner_cont_bg);
 }
 </style>
