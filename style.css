@@ -2,7 +2,11 @@
     font-weight: bolder;
 
 }
-
+#table_meta_container{
+    position: absolute;
+    height: 100%;
+    margin-left:-250px
+}
 #custom_table_container{
     width: 200px;
     position: sticky;

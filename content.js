@@ -613,8 +613,15 @@ function create_inpage_counter(courses, personal_courses){
     })
    
 
+    //meta_div
+    let meta_div= document.createElement("div")
+    meta_div.id="table_meta_container"
+
+    meta_div.appendChild(table_container)
+
+    let parent_=document.getElementsByClassName("view-content")[0]
     //last append
-    document.body.insertBefore(table_container, document.body.firstChild)
+    parent_.insertBefore(meta_div,parent_.firstChild)
 
     
 
