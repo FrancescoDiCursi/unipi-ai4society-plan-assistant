@@ -1,0 +1,130 @@
+:root{
+    --red_: #D22B2B;
+    --blue_: #0071c5;
+    --light_blue:#B9D9EB;
+    --light_yellow:#EED000;
+    --secondary_light: rgb(224, 241, 254);
+    
+
+
+}
+.table_idx{
+    font-weight: bolder;
+
+}
+#table_meta_container{
+    position: absolute;
+    height: 100%;
+}
+#custom_table_container{
+    width: 200px;
+    position: sticky;
+    z-index:999999999;
+    top:50%;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.table_on{
+    display: block;
+    
+}
+
+.table_off{
+    display: none
+}
+
+.table_toggle{
+    min-height: 95px;
+    font-size: 35px;
+    font-weight: bolder;
+}
+
+
+
+table, th, td {
+    border: 1px solid black;
+   border-collapse: collapse;
+    background-color: var(--secondary_light);
+}
+
+td{
+    padding: 5px;
+    text-align: center;
+    min-width: 65px;
+    font-weight: bolder;
+}
+
+
+.td_ok{
+    color: green;
+}
+
+.td_no{
+    color: var(--red)
+}
+
+#refresh_btn{
+    position: absolute;
+    top:-100px;
+    min-height: 95px;
+    font-size: 35px;
+    font-weight: bolder;
+    background-color: var(--blue);
+    color: white;
+    min-width: 75px;
+
+}
+
+#download_btn{
+    position:absolute;
+    top:100px;
+    min-height: 95px;
+    font-size: 35px;
+    font-weight: bolder;
+    min-width: 75px;
+    background-color: var(--blue);
+    color: white;
+}
+
+
+#info_tooltip{
+    display: none;
+    position: absolute;
+    left: 100px;
+    background-color: var(--secondary_light);
+    border: 1px solid black;
+    min-width: 150px;
+    width: 300px;
+    max-width: 600px;
+    text-align: center;
+}
+
+#import_btn{
+    position:absolute;
+    top:200px;
+    min-height: 95px;
+    font-size: 35px;
+    font-weight: bolder;
+    min-width: 75px;
+    background-color: var(--blue);
+    color: white;  
+}
+
+#guide_btn{
+    position: absolute;
+    top:-200px;
+    min-height: 95px;
+    font-size: 35px;
+    font-weight: bolder;
+    background-color: var(--blue);
+    color: white;
+    min-width: 75px;
+}
+
+#refresh_btn, .table_toggle, #download_btn, #import_btn, #guide_btn{
+    border-radius: 0% 100% 100% 0%;
+}
+
+
