@@ -3,7 +3,9 @@
     --blue_: #0071c5;
     --light_blue:#B9D9EB;
     --light_yellow:#EED000;
+    --secondary_light: rgb(224, 241, 254);
     
+
 
 }
 .table_idx{
@@ -13,7 +15,6 @@
 #table_meta_container{
     position: absolute;
     height: 100%;
-    margin-left:-290px
 }
 #custom_table_container{
     width: 200px;
@@ -45,7 +46,7 @@
 table, th, td {
     border: 1px solid black;
    border-collapse: collapse;
-    background-color: white;
+    background-color: var(--secondary_light);
 }
 
 td{
@@ -92,7 +93,7 @@ td{
     display: none;
     position: absolute;
     left: 100px;
-    background-color: var(--light_yellow);
+    background-color: var(--secondary_light);
     border: 1px solid black;
     min-width: 150px;
     width: 300px;
@@ -111,7 +112,18 @@ td{
     color: white;  
 }
 
-#refresh_btn, .table_toggle, #download_btn, #import_btn{
+#guide_btn{
+    position: absolute;
+    top:-200px;
+    min-height: 95px;
+    font-size: 35px;
+    font-weight: bolder;
+    background-color: var(--blue);
+    color: white;
+    min-width: 75px;
+}
+
+#refresh_btn, .table_toggle, #download_btn, #import_btn, #guide_btn{
     border-radius: 0% 100% 100% 0%;
 }
 

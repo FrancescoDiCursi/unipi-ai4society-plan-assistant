@@ -51,6 +51,19 @@ document.addEventListener("DOMContentLoaded",()=>{
                 create_exam_list(courses, targetted_groups, all_courses_list_cont)
                 let personal_courses_list_cont= document.getElementById("personal_courses_list")
                 create_exam_list(personal_courses, targetted_groups, personal_courses_list_cont)
+
+
+                let all_toggle= document.getElementById("all_toggle_btn")
+                let personal_toggle= document.getElementById("personal_toggle_btn")
+
+                let personal_selections=document.getElementById("n_personal_courses")
+                console.log(personal_selections.innerText)
+                //if some personal courses, then close "all" section
+                if(personal_selections.innerText==="0"|| personal_selections.innerText==="0/0"){
+                    personal_toggle.click()
+                } else{
+                    all_toggle.click()
+                }
                 
             })
         })
@@ -703,6 +716,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         //append
         personal_toggle_cont.appendChild(personal_toggle)
         personal_title.insertBefore(personal_toggle,personal_title.firstChild)
+
     }
 
 
@@ -711,6 +725,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         let infos_= document.getElementById("infos_")
         let download_= document.getElementById("download_")
         let import_=document.getElementById("import_")
+        let guide_= document.getElementById("guide_")
 
         clear_.addEventListener("click",()=>{
             chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
@@ -738,6 +753,11 @@ document.addEventListener("DOMContentLoaded",()=>{
                 var activeTab = tabs[0];
                 chrome.tabs.sendMessage(activeTab.id, {"message": "import"});
             });
+        })
+
+        guide_.addEventListener("click",()=>{
+            let new_url="https://github.com/FrancescoDiCursi/phd-ai4society-courses-selection-helper/blob/main/README.md"
+            window.open(new_url,"blank_")
         })
     }
 })

@@ -36,6 +36,7 @@ window.addEventListener("load",()=>{
                     //}else{
                     //
                     //}
+                    console.log("RESIZE")
 
                     //take directly all the checked inputs
                     let all_inputs= document.getElementsByClassName("course_inp")
@@ -65,9 +66,12 @@ window.addEventListener("load",()=>{
                     chrome.storage.local.get("all_courses").then((val)=>{
                         let courses_data= val["all_courses"]
                         create_inpage_counter(courses_data,selected_courses)
+                        handle_buttons_position(e)
+
                         console.log("UPDATED")
 
                     })
+
 
 
                     //send to background in order to update background-popup storage
@@ -116,6 +120,7 @@ window.addEventListener("load",()=>{
             }
 
             create_inpage_counter(courses_data, already_selected_courses)
+            handle_buttons_position()
 
             console.log("COURSES: ",courses_data)
                 //insert table in the page
@@ -346,7 +351,7 @@ function create_inpage_counter(courses, personal_courses){
             let text_format_flag= confirm("Do you want to download the file as TXT?\n(Press no for CSV)")
             let csv_format_flag
             if(text_format_flag===false){
-                csv_format_flag= confirm("Do you want to download the file as CSV?\n(Press no to nullify the download.")
+                csv_format_flag= confirm("Do you want to download the file as CSV?\n(Press no to nullify the download)")
             }else{
                 csv_format_flag=false
             }
@@ -545,6 +550,19 @@ function create_inpage_counter(courses, personal_courses){
     })
     table_container.appendChild(import_btn)
 
+    //append guide btn
+    let guide_btn=document.createElement("button")
+    guide_btn.id="guide_btn"
+    guide_btn.innerHTML="?"
+    guide_btn.addEventListener("click",()=>{
+        let confirm_flag= confirm("Do you want to open the complete guide?")
+        if(confirm_flag){
+            var newURL = "https://github.com/FrancescoDiCursi/phd-ai4society-courses-selection-helper/blob/main/README.md";
+            window.open(newURL, "_blank")
+        }
+    })
+    table_container.appendChild(guide_btn)
+
 
     //append tooltip
     let info_tooltip= document.createElement("span")
@@ -556,7 +574,7 @@ function create_inpage_counter(courses, personal_courses){
     //handle tooltip
     refresh_btn.addEventListener("mouseenter",(e)=>{
         info_tooltip.style.display="block"
-        info_tooltip.innerHTML="Reset study plan"
+        info_tooltip.innerHTML="<b>Reset the study plan</b>"
         info_tooltip.style.top="-70px" //e.target.style.top
     })
 
@@ -571,7 +589,7 @@ function create_inpage_counter(courses, personal_courses){
     
     table_toggle.addEventListener("mouseenter",(e)=>{
         info_tooltip.style.display="block"
-        info_tooltip.innerHTML="Show counters and plan validity<br>(red = invalid; green = valid)"
+        info_tooltip.innerHTML="<b>Show counters and plan validity</b><br>(red = invalid; green = valid)"
         info_tooltip.style.top="15px" //e.target.style.top
     })
 
@@ -584,7 +602,7 @@ function create_inpage_counter(courses, personal_courses){
 
     download_btn.addEventListener("mouseenter",(e)=>{
         info_tooltip.style.display="block"
-        info_tooltip.innerHTML="Download study plan<br>(TXT or CSV)"
+        info_tooltip.innerHTML="<b>Download study plan</b><br>(TXT or CSV)"
 
         info_tooltip.style.top="115px" //e.target.style.top
     })
@@ -599,7 +617,7 @@ function create_inpage_counter(courses, personal_courses){
     
     import_btn.addEventListener("mouseenter",(e)=>{
         info_tooltip.style.display="block"
-        info_tooltip.innerHTML="Import a study plan<br>(TXT or CSV)"
+        info_tooltip.innerHTML="<b>Import a study plan</b><br>(TXT or CSV)"
 
         info_tooltip.style.top="215px" //e.target.style.top
     })
@@ -607,6 +625,20 @@ function create_inpage_counter(courses, personal_courses){
     import_btn.addEventListener("mouseleave",()=>{
         info_tooltip.style.display="none"
         info_tooltip.style.top=0
+        info_tooltip.innerHTML=""
+
+
+    })
+
+    guide_btn.addEventListener("mouseenter",(e)=>{
+        info_tooltip.style.display="block"
+        info_tooltip.innerHTML="<b>- Click on this button to go to the complete guide</b>;<br>- Hover on buttons to inspect their functions;<br>- Click on the extension icon to see more!<br>- In the extension popup, click on 'Toggle handlers' to filter by dimensions;<br>- In the extension popup, click on the plot to filter the table."
+        info_tooltip.style.top="-140px" //e.target.style.top
+    })
+
+    guide_btn.addEventListener("mouseleave",()=>{
+        info_tooltip.style.display="none"
+        info_tooltip.style.top="0px"
         info_tooltip.innerHTML=""
 
 
@@ -694,5 +726,50 @@ function csvmaker (items) {
     }
     // Returning the array joining with new line  
     return csv.replace("undefined","")
-} 
+}
+
+function handle_buttons_position(e=""){
+    let width_=window.innerWidth
+    let height_=window.innerHeight
+
+    let left_
+    if(width_>1560){
+        left_="-20%"
+    }else if(width_>1300 && width_<=1560){
+        left_="-7%"
+    }else if(width_>1000  && width_<=1300){
+        left_="-5%"
+    }else if(width_>900  && width_<=1000){
+        left_="-10%"
+    
+    }else if(width_>600  && width_<=900){
+        left_="-5%"
+    }else{
+        left_="0%"
+    }
+
+    let meta_div= document.getElementById("table_meta_container")
+    meta_div.style.left=left_
+    if (e===""){
+        const debounce = (func, wait, immediate) => {
+            var timeout;
+            return () => {
+                const context = this, args = arguments;
+                const later = function() {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                };
+                const callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+        };
+    
+        window.addEventListener('resize', debounce(handle_buttons_position,
+    200, false), false);
+    }
+    
+
+}
 
