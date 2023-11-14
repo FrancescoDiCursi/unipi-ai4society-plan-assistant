@@ -712,7 +712,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         })
 
         guide_.addEventListener("click",()=>{
-            let new_url="https://github.com/FrancescoDiCursi/phd-ai4society-courses-selection-helper#readme"
+            let new_url="https://github.com/FrancescoDiCursi/unipi-phd-ai4society-courses-selection-assistant#readme"
             window.open(new_url,"blank_")
         })
     }

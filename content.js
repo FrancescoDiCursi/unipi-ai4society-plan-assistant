@@ -557,7 +557,7 @@ function create_inpage_counter(courses, personal_courses){
     guide_btn.addEventListener("click",()=>{
         let confirm_flag= confirm("Do you want to open the complete guide?")
         if(confirm_flag){
-            var newURL = "https://github.com/FrancescoDiCursi/phd-ai4society-courses-selection-helper#readme";
+            var newURL = "https://github.com/FrancescoDiCursi/unipi-phd-ai4society-courses-selection-assistant#readme";
             window.open(newURL, "_blank")
         }
     })

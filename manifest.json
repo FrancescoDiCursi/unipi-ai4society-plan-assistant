@@ -1,6 +1,6 @@
 {
 	"manifest_version" : 3,
-	"name" : "UnipiPhDSelector",
+	"name" : "unipi-phd-ai4society-courses-selection-assistant",
 	"version" : "0.001",
     "background":{
         "service_worker":"background.js",
