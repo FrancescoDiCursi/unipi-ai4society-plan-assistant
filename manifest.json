@@ -1,6 +1,6 @@
 {
 	"manifest_version" : 3,
-	"name" : "unipi-phd-ai4society-courses-selection-assistant",
+	"name" : "unipi-ai4society-plan-assistant",
 	"version" : "0.001",
     "background":{
         "service_worker":"background.js",
@@ -29,5 +29,5 @@
         "48":"ai-logo.png",
         "128":"ai-logo.png"
     },
-    "description": "An assitant to handle, visualize, export and import the Ph.D study plan in IA for Society at https://phd-ai-society.di.unipi.it/training/"
+    "description": "Handle, visualize, export and import the study plan at https://phd-ai-society.di.unipi.it/training/"
 }
