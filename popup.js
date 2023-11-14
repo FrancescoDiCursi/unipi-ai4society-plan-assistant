@@ -61,8 +61,15 @@ document.addEventListener("DOMContentLoaded",()=>{
                 //if some personal courses, then close "all" section
                 if(personal_selections.innerText==="0"|| personal_selections.innerText==="0/0"){
                     personal_toggle.click()
+                    //hide all refresh btn
+                    let refresh_btn= document.querySelector("#all_courses_metacont .refresh_selection_btn")
+                    refresh_btn.style.display="none"
+
                 } else{
                     all_toggle.click()
+                    //hide personal refresh btn
+                    let refresh_btn= document.querySelector("#personal_courses_metacont .refresh_selection_btn")
+                    refresh_btn.style.display="none"
                 }
                 
             })
@@ -261,6 +268,22 @@ document.addEventListener("DOMContentLoaded",()=>{
              if (plot_div_parent.querySelectorAll(".refresh_selection_btn").length===0){
                 plot_div.parentElement.insertBefore(refresh_selection, plot_div)
              }
+
+             let personal_selections=document.getElementById("n_personal_courses")
+                //console.log(personal_selections.innerText)
+                //if some personal courses, then close "all" section
+                if(personal_selections.innerText==="0"|| personal_selections.innerText==="0/0"){
+                    //personal_toggle.click()
+                    //hide all refresh btn
+                    let refresh_btn= document.querySelector("#personal_courses_metacont .refresh_selection_btn")
+                    refresh_btn.style.display="none"
+
+                } else{
+                    //all_toggle.click()
+                    //hide personal refresh btn
+                    let refresh_btn= document.querySelector("#all_courses_metacont .refresh_selection_btn")
+                    refresh_btn.style.display="none"
+                }
 
              
 
