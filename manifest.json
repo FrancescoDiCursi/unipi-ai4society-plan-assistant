@@ -7,7 +7,8 @@
         "type":"module"
     },
     "permissions":[
-        "storage"
+        "storage",
+        "downloads"
     ]
     ,
     "action" : {
