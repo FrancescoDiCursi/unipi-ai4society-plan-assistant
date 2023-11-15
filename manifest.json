@@ -1,7 +1,7 @@
 {
 	"manifest_version" : 3,
 	"name" : "unipi-ai4society-plan-assistant",
-	"version" : "0.002",
+	"version" : "0.003",
     "background":{
         "service_worker":"background.js",
         "type":"module"

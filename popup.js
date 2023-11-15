@@ -370,7 +370,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             int_inp.type="number"
             int_inp.className="int_inp"
             int_inp.min="0"
-            int_inp.max="6"
+            //int_inp.max="6" #no need for max
             if(all_cats.length!==targetted_groups.length && targetted_groups.length>0){
                 if (targetted_groups.includes(cat)){
                     int_inp.value= targetted_groups.indexOf(cat)+1
