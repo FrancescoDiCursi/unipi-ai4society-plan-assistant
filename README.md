@@ -49,7 +49,7 @@ In the extension popup the user can:
 
     Click on "Toggle category handlers" and insert a progressive integer for the wanted dimensions, then click on "Plot categories" to save the changes.
 
-    The chosen dimensions (along with their order) is shown at the bottom of this section, in the following format:
+    The chosen dimensions (along with their order) are shown at the bottom of this section, in the following format:
 
        - dimension_1 > dimension_2 > ... > dimension_N (max 3 or 4 suggested)
   
