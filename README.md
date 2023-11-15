@@ -46,7 +46,9 @@ In the extension popup the user can:
 
     Click on "Toggle category handlers" and insert a progressive integer for the wanted dimensions, then click on "Plot categories" to save the changes.
 
-    The chosen dimensions (along with their order) is shown at the bottom of this section, in the following format: dimension_1 > dimension_2 > ... > dimension_N (max 3 or 4 suggested)
+    The chosen dimensions (along with their order) is shown at the bottom of this section, in the following format:
+
+       - dimension_1 > dimension_2 > ... > dimension_N (max 3 or 4 suggested)
   
     NOTE: each integer must be different! For unwanted dimensions use 0 or an empty input.
 
@@ -70,15 +72,8 @@ In the extension popup the user can:
 
     Click on "Open" or "Close" to show or hide a section.
 
-    Finally, click on the links outside the table to perform the same actions avaiable on the main page (e.g., "Go to the guide", "Clear all selections", ...)
-
-    Finally, 
-    
-
-
-    
-     
-  
+    Finally, click on the links outside the table to perform the same actions avaiable on the main page (e.g., "Go to the guide", "Clear all selections", ...) 
+      
 _____
 # Do you want to help?
 
