@@ -22,12 +22,62 @@ _____
      The button is red if the thresholds are not reached, green otherwise.
 
   - **(⭳) Export button**: download the study plan. Follow the popups to choose among filtered or integral data and TXT or CSV format.
+    
   - **(💾) Import button**: import the study plan, either a TXT or CSV file (the same obtained with the download button).
 
 Note: The same functionalities are made avaiable in the extension popup also.
 
 ## Extension popup
+- Click on the extension icon to show the extension popup;
+  
+- The popup is made of 3 sections:
+  
+  1- **Category handlers**;
+  
+  2- **All courses**;
+  
+  3- **Personal courses**;
+  
+In the extension popup the user can:
 
+  - **Filter through category handlers**:
+
+    ![](https://github.com/FrancescoDiCursi/unipi-ai4society-plan-assistant/blob/main/preview%20imgs/img2.png?raw=true)
+
+    Click on "Toggle category handlers" and insert a progressive integer for the wanted dimensions, then click on "Plot categories" to save the changes.
+
+    The chosen dimensions (along with their order) is shown at the bottom of this section, in the following format: dimension_1 > dimension_2 > ... > dimension_N (max 3 or 4 suggested)
+  
+    NOTE: each integer must be different! For unwanted dimensions use 0 or an empty input.
+
+  - **Visualize and filter courses through a hierachical plot**:
+
+    ![](https://github.com/FrancescoDiCursi/unipi-ai4society-plan-assistant/blob/main/preview%20imgs/img3.png?raw=true)
+
+    The plot displays the chosen dimensions.
+
+    By clicking on elements within each category, the user can highlight a path across the entire plot, using the selection to filter the relative table.
+
+    By hovering on the paths between axis, the user can see a counter for that path.
+
+    In order to remove selections, click on the selected elements or reset all selections by clicking on "Reset selection".
+
+    ![](https://github.com/FrancescoDiCursi/unipi-ai4society-plan-assistant/blob/main/preview%20imgs/img4.png?raw=true)
+
+    Click on the arrows in the table header to sort the table based on a single column.
+
+    Click on the names in the table to go to the course page.
+
+    Click on "Open" or "Close" to show or hide a section.
+
+    Finally, click on the links outside the table to perform the same actions avaiable on the main page (e.g., "Go to the guide", "Clear all selections", ...)
+
+    Finally, 
+    
+
+
+    
+     
   
 _____
 # Do you want to help?
