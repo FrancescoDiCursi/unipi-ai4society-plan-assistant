@@ -1,8 +1,8 @@
 # unipi-ai4society-plan-assistant
 
-⚠️ Full guide coming soon...
+A Chrome extension to enhance the accessibility of the training page of the National PhD in Artificial Intelligence for Society.
 
-⚠️ Coming soon on the Chrome store...
+:warning: **This extension only works on https://phd-ai-society.di.unipi.it/training/**
 _____
 ## Main page
 ![](https://github.com/FrancescoDiCursi/unipi-ai4society-plan-assistant/blob/main/preview%20imgs/img1.png?raw=true)
