@@ -1,5 +1,23 @@
 
+
+
+
 document.addEventListener("DOMContentLoaded",()=>{
+    //go to courses page
+
+    chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+        var activeTab = tabs[0];
+        chrome.tabs.sendMessage(activeTab.id, {"message": "get_url"}).then((response)=>{
+            console.log("RESPONSE", response)
+            let url= response.url
+        }).catch(()=>{
+            let go_to_page= confirm("You are on the wrong page.\nDo you want to be redirected to the right page?")
+            if(go_to_page){
+                window.open("https://phd-ai-society.di.unipi.it/training/", "blank_")
+            }
+        })
+    });
+
     //START
     chrome.storage.local.get("all_courses").then((value)=>{
         let courses= value["all_courses"]
