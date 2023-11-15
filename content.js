@@ -674,6 +674,9 @@ chrome.runtime.onMessage.addListener(
         } else if( request.message === "import"){
             let import_btn= document.getElementById("import_btn")
             import_btn.click()
+        } else if(request.message === "guide"){
+            let guide_btn= document.getElementById("guide_btn")
+            guide_btn.click()
         } else if( request.message ==="get_url"){
             let url= window.location.href
             sendResponse({"url":url})

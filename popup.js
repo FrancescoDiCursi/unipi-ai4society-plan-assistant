@@ -753,8 +753,10 @@ document.addEventListener("DOMContentLoaded",()=>{
         })
 
         guide_.addEventListener("click",()=>{
-            let new_url="https://github.com/FrancescoDiCursi/unipi-ai4society-plan-assistant#readme"
-            window.open(new_url,"blank_")
+            chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+                var activeTab = tabs[0];
+                chrome.tabs.sendMessage(activeTab.id, {"message": "guide"});
+            });
         })
     }
 })
