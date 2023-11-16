@@ -3,6 +3,9 @@
 A Chrome extension to enhance the accessibility of the training page of the National PhD in Artificial Intelligence for Society.
 
 :warning:
+Soon on the Chrome store...
+
+:warning:
 **This extension only works on https://phd-ai-society.di.unipi.it/training/**.
 
 If on the wrong page, **the user can be redirected to the right page simply by clicking on the extension icon**.
