@@ -683,6 +683,8 @@ chrome.runtime.onMessage.addListener(
         } else if( request.message ==="scroll_into_view"){
             Array.from(document.querySelectorAll('.views-field-title'))
             .find(el => el.textContent.trim()===request.data.trim()).parentElement.scrollIntoView()
+            //a bit higher to show the input
+            window.scrollBy(0,-50)
         }else if (request.message === "redirect_to_course"){
             if(request.data.length>0){
                 window.open(request.data)
