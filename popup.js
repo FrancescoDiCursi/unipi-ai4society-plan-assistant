@@ -8,10 +8,10 @@ document.addEventListener("DOMContentLoaded",()=>{
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
         var activeTab = tabs[0];
         chrome.tabs.sendMessage(activeTab.id, {"message": "get_url"}).then((response)=>{
-            console.log("RESPONSE", response)
+            //console.log("RESPONSE", response)
             let url= response.url
         }).catch(()=>{
-            let go_to_page= confirm("You are on the wrong page.\nDo you want to be redirected to the right page?")
+            let go_to_page= confirm("You are on the wrong page or you need to reload it.\nDo you want to be redirected to the right page?")
             if(go_to_page){
                 window.open("https://phd-ai-society.di.unipi.it/training/", "blank_")
             }
@@ -617,7 +617,29 @@ document.addEventListener("DOMContentLoaded",()=>{
                 body_cell.className="name"
                 //get link from original course list
                 let original_course= courses.filter(f=>f["Name"]===obj["Name"])[0]
-                body_cell.innerHTML= `<a target="blank_" href="${original_course["Link"]}">${obj[k]}</a>`  //val of key
+                body_cell.innerHTML= `${obj[k]}`  //val of key
+                body_cell.addEventListener("click",()=>{
+                    let flag_scroll= confirm("Do you want to scroll the course into view?\n(press 'No' for the next option, i.e., redirect to course page)")
+                    if(flag_scroll){
+                        //GO TO CONTENT
+                        chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+                            var activeTab = tabs[0];
+                            chrome.tabs.sendMessage(activeTab.id, {"message": "scroll_into_view", "data":obj[k]});
+                        });
+                        
+                    }else{
+                        let flag_redirect= confirm("Do you want to go to the course page?\n(press 'No' to abort the process)")
+                        if (flag_redirect){
+                            chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+                                var activeTab = tabs[0];
+                                chrome.tabs.sendMessage(activeTab.id, {"message": "redirect_to_course", "data":original_course["Link"]});
+                            });
+                        }
+                      
+                    }
+                    
+
+                })
 
             }else{
                 body_cell.innerHTML= obj[k]  //val of key

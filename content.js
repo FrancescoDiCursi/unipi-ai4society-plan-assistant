@@ -680,6 +680,15 @@ chrome.runtime.onMessage.addListener(
         } else if( request.message ==="get_url"){
             let url= window.location.href
             sendResponse({"url":url})
+        } else if( request.message ==="scroll_into_view"){
+            Array.from(document.querySelectorAll('.views-field-title'))
+            .find(el => el.textContent.trim()===request.data.trim()).parentElement.scrollIntoView()
+        }else if (request.message === "redirect_to_course"){
+            if(request.data.length>0){
+                window.open(request.data)
+            }else{
+                alert("This course has no link!")
+            }
         }
 
         return true //needed for get_url
