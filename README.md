@@ -2,8 +2,8 @@
 
 A Chrome extension to enhance the accessibility of the training page of the National PhD in Artificial Intelligence for Society.
 
-:warning:
-Soon on the Chrome store...
+🛒:
+Go get it on the [Chrome store](https://chromewebstore.google.com/u/1/detail/unipi-ai4society-plan-ass/fkjlneadfmkcmopndhhhcoidilahgpai?hl=it&pli=1)!
 
 :warning:
 **This extension only works on https://phd-ai-society.di.unipi.it/training/**.
