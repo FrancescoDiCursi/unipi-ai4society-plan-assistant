@@ -31,7 +31,7 @@ _____
     
   - **(💾) Import button**: import the study plan, either a TXT or CSV file (the same obtained with the download button).
 
-Note: The same functionalities are made avaiable in the extension popup also.
+Note: The same functionalities are made available in the extension popup also.
 
 ## Extension popup
 - Click on the extension icon to show the extension popup;
@@ -78,7 +78,7 @@ In the extension popup the user can:
 
     Click on "Open" or "Close" to show or hide a section.
 
-    Finally, click on the links outside the table to perform the same actions avaiable on the main page (e.g., "Go to the guide", "Clear all selections", ...) 
+    Finally, click on the links outside the table to perform the same actions available on the main page (e.g., "Go to the guide", "Clear all selections", ...) 
       
 _____
 # Do you want to help?
