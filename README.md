@@ -74,7 +74,7 @@ In the extension popup the user can:
 
     Click on the arrows in the table header to sort the table based on a single column.
 
-    Click on the names in the table to go to the course page.
+    Click on the names in the table to either scroll to the course or to go the course page.
 
     Click on "Open" or "Close" to show or hide a section.
 
