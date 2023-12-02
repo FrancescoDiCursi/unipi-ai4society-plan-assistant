@@ -21,9 +21,9 @@ _____
      
    - **(⟳) Refresh button**: it refreshes the selected courses;
      
-   - **(ⓘ) Show plan info**: it opens a popup showing 4 counters
+   - **(ⓘ) Show plan info**: it opens a popup showing 6 counters
 
-     (i.e., number of selected elements and their hours for all courses, those with and without exam)
+     (i.e., number of selections and their relative amount of hours for all courses, those with and without exam)
 
      The button is red if the thresholds are not reached, green otherwise.
 
