@@ -2,8 +2,8 @@
 
 A Chrome extension to enhance the accessibility of the training page of the National PhD in Artificial Intelligence for Society.
 
-:warning:
-Soon on the Chrome store...
+🛒
+Go get it on the [Chrome store](https://chromewebstore.google.com/u/1/detail/unipi-ai4society-plan-ass/fkjlneadfmkcmopndhhhcoidilahgpai?hl=it&pli=1)!
 
 :warning:
 **This extension only works on https://phd-ai-society.di.unipi.it/training/**.
@@ -21,9 +21,9 @@ _____
      
    - **(⟳) Refresh button**: it refreshes the selected courses;
      
-   - **(ⓘ) Show plan info**: it opens a popup showing 4 counters
+   - **(ⓘ) Show plan info**: it opens a popup showing 6 counters
 
-     (i.e., number of selected elements and their hours for all courses, those with and without exam)
+     (i.e., number of selections and their relative amount of hours for all courses, those with and without exam)
 
      The button is red if the thresholds are not reached, green otherwise.
 
@@ -31,7 +31,7 @@ _____
     
   - **(💾) Import button**: import the study plan, either a TXT or CSV file (the same obtained with the download button).
 
-Note: The same functionalities are made avaiable in the extension popup also.
+Note: The same functionalities are made available in the extension popup also.
 
 ## Extension popup
 - Click on the extension icon to show the extension popup;
@@ -74,11 +74,11 @@ In the extension popup the user can:
 
     Click on the arrows in the table header to sort the table based on a single column.
 
-    Click on the names in the table to go to the course page.
+    Click on the names in the table to either scroll to the course or to go to the course page.
 
     Click on "Open" or "Close" to show or hide a section.
 
-    Finally, click on the links outside the table to perform the same actions avaiable on the main page (e.g., "Go to the guide", "Clear all selections", ...) 
+    Finally, click on the links outside the table to perform the same actions available on the main page (e.g., "Go to the guide", "Clear all selections", ...) 
       
 _____
 # Do you want to help?
