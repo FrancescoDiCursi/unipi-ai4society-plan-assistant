@@ -14,8 +14,20 @@ window.addEventListener("load",()=>{
             for(let i=0;i<courses_nodes.length;i++){
                 let hr = document.createElement("hr")
                 let curr_node= courses_nodes.item(i)
+                console.log(curr_node.children.length)
+                //handle empty elements
+                if([0,1].includes(curr_node.children.length)){
+                    curr_node.style.backgroundColor="grey"
+                    continue
+                }
                 let curr_title= curr_node.getElementsByClassName("views-field-title")[0]
-                let curr_title_txt= curr_title.textContent.trim()
+                let curr_title_txt=""
+                try{
+                    curr_title_txt= curr_title.textContent.trim()
+                }
+                catch{
+                    continue
+                }
                 let checkbox= document.createElement("input")
                 checkbox.className="course_inp"
                 checkbox.type="checkbox"
@@ -97,12 +109,18 @@ window.addEventListener("load",()=>{
             for(let i=0;i<courses_nodes.length;i++){
             
                     let fields_nodes= courses_nodes.item(i)
+                    if(fields_nodes.querySelector("h2")===null){
+                        continue
+                    }
                     let name_ = fields_nodes.querySelector("h2").innerText
                     let data_nodes= fields_nodes.querySelectorAll("div")
                     let data_={}
                     for (let j=0; j<data_nodes.length; j++){
                         let field= data_nodes.item(j)
                         ////console.log("FIELD: ", field)
+                        if(field.querySelector("strong")===null || field.querySelector("span")===null){
+                            continue
+                        }
                         let label= field.querySelector("strong").innerText.replace(":","").trim()
                         let value= field.querySelector("span").innerText.replace("<br>","")
                         if(label==="Semester" && value.indexOf(",")>-1){
